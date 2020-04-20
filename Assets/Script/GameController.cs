@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,14 +16,20 @@ public class GameController : MonoBehaviour
     public float startWait;
     public float waveWait;
     public Text ScoreText;
-    private int score;
+    public int score;
     public Text restartText;
     public Text gameOverText;
+    public AudioClip musicClipOne;
+    public AudioClip musicClipTwo;
+    public AudioSource musicSource;
 
-    private bool gameOver;
+
+
+
+    public bool gameOver;
     private bool restart;
 
-     void Start()
+    void Start()
     {
         gameOver = false;
         restart = false;
@@ -30,25 +37,28 @@ public class GameController : MonoBehaviour
         gameOverText.text = "";
         score = 0;
         UpdateScore();
-        StartCoroutine (SpawnWaves());
+        StartCoroutine(SpawnWaves());
+        musicSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
         if (restart)
         {
-            if(Input.GetKeyDown(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.T))
             {
                 SceneManager.LoadScene("_Scene");
             }
 
         }
+        
+        
     }
     IEnumerator SpawnWaves()
     {
 
         yield return new WaitForSeconds(startWait);
-        while(true)
+        while (true)
         {
 
             for (int i = 0; i < hazardCount; i++)
@@ -62,35 +72,48 @@ public class GameController : MonoBehaviour
             }
             yield return new WaitForSeconds(waveWait);
 
-            if(gameOver)
+            if (gameOver)
             {
+
+                
                 restartText.text = "Press 'T' for Restart";
                 restart = true;
                 break;
-                   
+
             }
+            
+
 
         }
     }
-    public void AddScore (int newScoreValue)
+    
+        public void AddScore(int newScoreValue)
     {
         score += newScoreValue;
         UpdateScore();
-            
+
     }
     void UpdateScore()
     {
         ScoreText.text = "Points: " + score;
-        if (score >= 100)
+        if (score >= 100&& score<= 115)
         {
+            musicSource.Stop();
+            musicSource.clip = musicClipOne;
+            musicSource.Play();
             gameOverText.text = "You Win!Game Created By HangZheng";
             gameOver = true;
             restart = true;
+            
         }
     }
     public void Gameover()
     {
+        musicSource.Stop();
+        musicSource.clip = musicClipTwo;
+        musicSource.Play();
         gameOverText.text = "Game Over";
         gameOver = true;
+       
     }
 }

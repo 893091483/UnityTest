@@ -11,8 +11,8 @@ public class DestroyByContact : MonoBehaviour
 
     private void Start()
     {
-        GameObject gamecontrollerobject = GameObject.FindWithTag("GameController"); 
-        if(gamecontrollerobject != null)
+        GameObject gamecontrollerobject = GameObject.FindWithTag("GameController");
+        if (gamecontrollerobject != null)
         {
             gamecontroller = gamecontrollerobject.GetComponent<GameController>();
         }
@@ -24,7 +24,7 @@ public class DestroyByContact : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag  ("Boundary")|| other.CompareTag  ("Enemy"))
+        if (other.CompareTag("Boundary") || other.CompareTag("Enemy"))
         {
             return;
         }
@@ -32,7 +32,7 @@ public class DestroyByContact : MonoBehaviour
         {
             Instantiate(explosion, transform.position, transform.rotation);
         }
-        if (other.tag == "Player")
+        if (other.tag == "PlayerController")
         {
             Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
             gamecontroller.Gameover();
@@ -42,4 +42,5 @@ public class DestroyByContact : MonoBehaviour
         Destroy(other.gameObject);
         Destroy(gameObject);
     }
+    
 }

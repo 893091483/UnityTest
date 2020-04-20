@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
             musicSource.clip = musicSource1;
             musicSource.Play();
+            
         }
     }
     private void Start()
@@ -52,10 +53,8 @@ public class PlayerController : MonoBehaviour
         );
         rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
 
-        if (Input.GetKey("escape"))
-        {
-            Application.Quit();
-        }
+        
 
     }
+
 }
