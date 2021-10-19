@@ -4,10 +4,7 @@ on: [push, pull_request]
 
 jobs:
   testAllModes:
-  
-    name: Unity - Test runner
-    uses: game-ci/unity-test-runner@v2.0-alpha-6
-    
+    name: Test in ${{ matrix.testMode }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
